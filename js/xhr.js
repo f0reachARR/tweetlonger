@@ -73,20 +73,21 @@ window.XMLHttpRequest = newXhr;
 
 // XHR書き換えｺｺﾏﾃﾞ
 // ツイートボタン書き換えｺｺｶﾗ
-function setObserver() {
-    let target = document.querySelector('.tweet-counter');
-    if (!target) {
-        setTimeout(setObserver, 1000);
-        return;
+const obs = new MutationObserver(items => {
+    console.log(items);
+    if (parseInt(document.querySelector('.tweet-counter').innerText, 10) >= -140) {
+        let btn = document.querySelector('.tweet-action.js-tweet-btn');
+        btn.removeAttribute('disabled');
+        btn.classList.remove('disabled');
     }
-    new MutationObserver(items => {
-        console.log(items);
-        if (parseInt(document.querySelector('.tweet-counter').innerText, 10) >= -140) {
-            let btn = document.querySelector('.tweet-action.js-tweet-btn');
-            btn.removeAttribute('disabled');
-            btn.classList.remove('disabled');
-        }
-    }).observe(target, { characterData: true, characterDataOldValue: true, subtree: true, childList: true });
+});
+function setObserver() {
+    document.querySelectorAll('.tweet-counter').forEach(item => {
+        if (!item.getAttribute('data-longer'))
+            obs.observe(item, { characterData: true, characterDataOldValue: true, subtree: true, childList: true });
+        item.setAttribute('data-longer', 1);
+    });
+    setTimeout(setObserver, 1000);
 }
 
 setObserver();

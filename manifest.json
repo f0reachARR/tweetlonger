@@ -1,7 +1,7 @@
 ﻿{
     "name": "Twitter Text Length Extender",
-    "description": "Twitterの240字モードを有効にします",
-    "version": "0.1",
+    "description": "Twitterの280字モードを有効にします",
+    "version": "0.2",
     "manifest_version": 2,
     "icons": {
         "48": "image/icon.png"
